@@ -1,5 +1,6 @@
 import TripManager from "./domain/tripManager.ts";
 import City from "./domain/city.ts";
+import Accommodation from "./domain/accommodation.ts";
 
 const manager = new TripManager();
 const form = document.getElementById("city-form") as HTMLFormElement | null;
@@ -20,17 +21,21 @@ function renderCities(): void {
     const country = city.getCountry ? city.getCountry() || "" : "";
     const duration = city.getDurationDays() ? city.getDurationDays() : "";
     const notesText = city.getNotes ? String(city.getNotes() || "") : "";
+    const nombreAlojamiento = city.getAccommodation().getName() ? city.getAccommodation().getName() || "" : "";
+    const costoAlojamiento = city.getAccommodation().getCost() ? city.getAccommodation().getCost() || "" : "";
     const notesHtml = notesText
       ? notesText
       : '<span class="text-muted">Sin datos</span>';
     tr.innerHTML = `<td>
     <strong>${city.getName()}</strong>
     </td>
-    <td>${country}</td>
+    <td><span class="badge text-bg-primary">${country}</span></td>
     <td>${duration ? `${duration} días` : "—"}</td>
     <td>${dateFrom}</td>
     <td>${dateTo}</td>
-    <td>${notesHtml}</td>`;
+    <td>${notesHtml}</td>
+    <td>${nombreAlojamiento}</td>
+    <td>${costoAlojamiento}</td> `
     citiesTbody.appendChild(tr);
   });
 }
@@ -47,6 +52,8 @@ function handleCityFormSubmit(e: SubmitEvent): void {
     .value;
   const notes = (document.getElementById("city-notes") as HTMLTextAreaElement)
     .value;
+  const nameAlojamiento = (document.getElementById("name-alojamiento") as HTMLInputElement).value;
+  const costAlojamiento = (document.getElementById("costo-alojamiento") as HTMLInputElement).valueAsNumber;
 
   const city = new City(
     name,
@@ -54,6 +61,7 @@ function handleCityFormSubmit(e: SubmitEvent): void {
     new Date(dateFrom),
     new Date(dateTo),
     notes,
+    new Accommodation(costAlojamiento, nameAlojamiento),
   );
   if (!city) {
     showToast("Error", "No se pudo crear la ciudad", "danger");

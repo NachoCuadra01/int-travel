@@ -96,10 +96,11 @@
                   <legend class="float-none w-auto px-2 fs-5">
                     Alojamiento
                   </legend>
-                  <div class="alert alert-info mb-0" role="status">
-                    <span class="badge text-bg-info me-2">Próximamente</span>
-                    Aquí podrás agregar el alojamiento de esta ciudad.
-                  </div>
+                  <label for="nombre alojamiento"> Nombre alojamiento</label>
+                  <input type="text" id="name-alojamiento" class="form-control"  required>
+
+                  <label for="costo alojamiento"> Costo alojamiento</label>
+                  <input type="number" id="costo-alojamiento" class="form-control" min="0"  required>
                 </fieldset>
 
                 <div class="col-12">
@@ -135,6 +136,8 @@
                     <th>Fecha ida</th>
                     <th>Fecha vuelta</th>
                     <th>Notas</th>
+                    <th>Nombre alojamiento</th>
+                    <th>Costo alojamiento</th>
                   </tr>
                 </thead>
                 <tbody id="cities-tbody"></tbody>
