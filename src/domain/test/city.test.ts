@@ -1,5 +1,6 @@
 import { describe, beforeEach, test, expect } from "vitest";
 import City, { calculateDurationDays } from "../city.ts";
+import Accommodation from "../accommodation"
 
 function createCity(): City {
   return new City(
@@ -8,6 +9,7 @@ function createCity(): City {
     new Date("2023-05-01"),
     new Date("2023-05-04"),
     "Notas",
+    new Accommodation(100, "Victoria plaza"),
   );
 }
 
@@ -31,6 +33,14 @@ describe("City country", () => {
   beforeEach(() => {
     city = createCity();
   });
+
+  test("Devuelve bien el pais", () => {
+    expect(city.getCountry()).toBe("TestCountry")
+  })
+
+  test("Devuelve bien el accommodation", () => {
+    //expect(city.getAccommodation()).toBe("");
+  })
 
   test("should set country correctly", () => {
     // TODO: Implementar test para validar país
@@ -160,6 +170,8 @@ describe("Duration in days", () => {
       "TestCountry",
       new Date("2023-05-01"),
       new Date("2023-05-01"),
+      "Notas",
+      new Accommodation(300, "Radisson")
     );
     expect(singleDayCity.getDurationDays()).toBe(1);
   });
